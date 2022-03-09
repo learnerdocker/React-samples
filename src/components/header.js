@@ -1,21 +1,9 @@
 import React, { useState } from "react";
 
-import styled from "styled-components";
 import Login from "./login";
 import Registration from "./registration";
 import Button from "./button";
 
-const HeaderElement = styled.header`
-  display: flex;
-  width: 100%;
-  height: 120px;
-  justify-content: space-between;
-  color: red;
-`;
-const myButton = styled.button`
-  width: 20px;
-  height: 16px;
-`;
 export default function Header() {
   const [login, setLogin] = useState(false);
   const [register, setRegister] = useState(false);
@@ -29,9 +17,9 @@ export default function Header() {
 
   return (
     <div className="header">
-      <HeaderElement>
+      <header>
         <h1>Wells Fargo</h1>
-      </HeaderElement>
+      </header>
       {login ? (
         <Login />
       ) : register ? (
