@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import Welcome from "./welcome";
 import Login from "./login";
 import Registration from "./registration";
 import Button from "./button";
@@ -7,6 +7,15 @@ import Button from "./button";
 export default function Header() {
   const [login, setLogin] = useState(false);
   const [register, setRegister] = useState(false);
+  const [user, setUser] = useState(false);
+  const [name, setName] = useState("");
+
+  const submitHandler = (userValid, userName) => {
+    console.log("checking userValid : ", userValid);
+    setUser(userValid);
+    setName(userName);
+    setLogin(false);
+  };
 
   const loginHandler = (e) => {
     setLogin(true);
@@ -21,9 +30,11 @@ export default function Header() {
         <h1>Wells Fargo</h1>
       </header>
       {login ? (
-        <Login />
+        <Login submitHandler={submitHandler} />
       ) : register ? (
         <Registration />
+      ) : user ? (
+        <Welcome name={name} />
       ) : (
         <div>
           <fieldset>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Login = () => {
+const Login = (props) => {
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -10,15 +10,11 @@ const Login = () => {
 
   const changeHandler = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
+    console.log(data);
   };
-
   const submitHandler = (e) => {
     e.preventDefault();
-    if (password.length < 5) {
-      alert("provide password characters>5");
-    } else {
-      console.log(data);
-    }
+    props.submitHandler(true, email);
   };
 
   return (
