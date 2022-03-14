@@ -1,0 +1,35 @@
+* {
+  box-sizing: border-box;
+}
+.container {
+  border-radius: 25px;
+  background-color: #f1f1f1;
+  padding: 60px;
+  padding-bottom: 180px;
+}
+button {
+  color: brown;
+  cursor: pointer;
+}
+.labels {
+  text-align: center;
+
+  text-decoration: none;
+}
+.formdesign {
+}
+h1 {
+  color: red;
+  margin: 25px, 0px, 10px, 18px;
+  background-color: #f1f1f1;
+  text-align: center;
+  padding: 20px;
+}
+
+.footer {
+  background-color: #f1f1f1;
+  text-align: center;
+  padding: 15px;
+}
+@media screen and (max-width: 600px) {
+}

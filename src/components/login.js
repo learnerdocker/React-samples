@@ -1,4 +1,35 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import "./login.css";
+
+const memberDetails = [
+  { id: "m1", name: "naren", email: "naren@gmail.com", password: "naren123" },
+  {
+    id: "m2",
+    name: "narender",
+    email: "narender@gmail.com",
+    password: "narender123",
+  },
+  { id: "m3", name: "susmi", email: "susmi@gmail.com", password: "susmi123" },
+  {
+    id: "m4",
+    name: "susmitha",
+    email: "susmitha@gmail.com",
+    password: "susmitha123",
+  },
+  {
+    id: "m5",
+    name: "krithi",
+    email: "krithi@gmail.com",
+    password: "krithi123",
+  },
+  {
+    id: "m6",
+    name: "krithika",
+    email: "krithika@gmail.com",
+    password: "krithika143",
+  },
+];
 
 const Login = (props) => {
   const [data, setData] = useState({
@@ -6,33 +37,67 @@ const Login = (props) => {
     password: "",
   });
 
+  const [error, setError] = useState("");
+
+  const history = useNavigate();
+
   const { email, password } = data;
 
   const changeHandler = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
-    console.log(data);
+    // console.log(data);
   };
   const submitHandler = (e) => {
     e.preventDefault();
-    props.submitHandler(true, email);
+
+    const validUserDetails = memberDetails.filter((member) => {
+      return member.email === email;
+    });
+
+    if (validUserDetails.length === 0) {
+      // document.getElementById("demo").innerHTML =
+      //   "Enter valid E-Mail & password";
+      setError("Enter valid E-Mail & password");
+    } else if (validUserDetails[0].password === password) {
+      history("/welcome");
+      props.submitHandler(true, email);
+    } else {
+      // document.getElementById("demo").innerHTML = "Enter valid password";
+      setError("Enter valid password");
+    }
+
+    //console.log(validUserDetails);
   };
 
   return (
     <div>
-      <center>
-        <form onSubmit={submitHandler}>
-          <label>E-Mail</label>
-          <br />
-          <input type="text" name="email" onChange={changeHandler} />
-          <br />
-          <label>Password </label>
-          <br />
-          <input type="password" name="password" onChange={changeHandler} />
-          <br />
+      <div>
+        <Link to="/home">Back to Home</Link>
+      </div>
+      <br />
+      <div className="login">
+        <center>
+          <form onSubmit={submitHandler}>
+            <label>E-Mail</label>
+            <br />
+            <input type="text" name="email" onChange={changeHandler} />
+            <br />
+            <label>Password </label>
+            <br />
 
-          <input type="submit" value="Login" className="btn btn-primary" />
-        </form>
-      </center>
+            <input type="password" name="password" onChange={changeHandler} />
+            <br />
+            <br />
+
+            <input type="submit" value="Submit" className="btn" />
+          </form>
+        </center>
+        <div>
+          <center>
+            <h3 id="demo"> {error} </h3>
+          </center>
+        </div>
+      </div>
     </div>
   );
 };
