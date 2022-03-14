@@ -52,7 +52,7 @@ export default function Header() {
       ) : (
         <div>
           <div className="labels">
-            <fieldset>
+            <fieldset className="formdesign">
               <label htmlFor="already-user">Already-User ?: </label>
               <Button handleClick={loginHandler} name="Login" />
             </fieldset>
