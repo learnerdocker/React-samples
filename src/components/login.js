@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./login.css";
+const  axios = require('axios').default;
 
 const memberDetails = [
   { id: "m1", name: "naren", email: "naren@gmail.com", password: "naren123" },
@@ -38,7 +39,6 @@ const Login = (props) => {
   });
 
   const [error, setError] = useState("");
-
   const history = useNavigate();
 
   const { email, password } = data;
@@ -47,24 +47,73 @@ const Login = (props) => {
     setData({ ...data, [e.target.name]: e.target.value });
     // console.log(data);
   };
+
   const submitHandler = (e) => {
     e.preventDefault();
+    const requestData = {  'email': email,   'password': password  };
 
-    const validUserDetails = memberDetails.filter((member) => {
-      return member.email === email;
+    //console.log(requestData);
+try{
+    axios.post( "http://localhost:8080/IsUserValid", {
+      email: email,
+      password: password
+    }, 
+    ).then(res => {
+      console.log(res);
+      if(res.data.IsValid)
+      {
+          history("/welcome");
+          props.submitHandler(true, email);
+      }
+      else
+      setError("User is not registered or not valid");
     });
+  }
+  catch(error)
+  {
+    console.log('error: ', error);
+  }
+    ///// -------
+/*
+  fetch("http://localhost:8080/IsUserValid", {
+    "method": "POST",
+    "headers": {        
+      "accept": "application/json"
+    },
+    "body": requestData
+    })
+    .then(response => response.json())
+    .then(response => {
+      console.log(response)
 
-    if (validUserDetails.length === 0) {
-      // document.getElementById("demo").innerHTML =
-      //   "Enter valid E-Mail & password";
-      setError("Enter valid E-Mail & password");
-    } else if (validUserDetails[0].password === password) {
+     if( response.IsValid)
+     {
       history("/welcome");
       props.submitHandler(true, email);
-    } else {
-      // document.getElementById("demo").innerHTML = "Enter valid password";
-      setError("Enter valid password");
-    }
+     }
+     else
+     setError("Enter valid E-Mail & password");
+    })
+    .catch(err => {
+      console.log(err);
+    });
+
+*/
+    // const validUserDetails = memberDetails.filter((member) => {
+    //   return member.email === email;
+    // });
+
+    // if (validUserDetails.length === 0) {
+    //   // document.getElementById("demo").innerHTML =
+    //   //   "Enter valid E-Mail & password";
+    //   setError("Enter valid E-Mail & password");
+    // } else if (validUserDetails[0].password === password) {
+    //   history("/welcome");
+    //   props.submitHandler(true, email);
+    // } else {
+    //   // document.getElementById("demo").innerHTML = "Enter valid password";
+    //   setError("Enter valid password");
+    // }
 
     //console.log(validUserDetails);
   };
