@@ -6,6 +6,7 @@ import Login from "./components/Login";
 import Registration from "./components/Registration";
 import Welcome from "./components/Welcome";
 import Regsuccess from "./components/regsuccess";
+import AllUsers from "./components/AllUsers";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/welcome" element={<Welcome />} />
           <Route path="/register" element={<Registration />} />
           <Route path="/regsuccess" element={<Regsuccess />} />
+          <Route path="/AllUsers" element={<AllUsers />} />
         </Routes>
       </BrowserRouter>
     </div>
