@@ -7,6 +7,8 @@ import Registration from "./components/Registration";
 import Welcome from "./components/Welcome";
 import Regsuccess from "./components/regsuccess";
 import AllUsers from "./components/AllUsers";
+import EditUserData from "./components/EditUserData";
+import UserData from "./components/UserData";
 
 function App() {
   return (
@@ -20,6 +22,7 @@ function App() {
           <Route path="/register" element={<Registration />} />
           <Route path="/regsuccess" element={<Regsuccess />} />
           <Route path="/AllUsers" element={<AllUsers />} />
+          <Route path="/EditUserData" element={<EditUserData />} />
         </Routes>
       </BrowserRouter>
     </div>

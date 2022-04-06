@@ -3,35 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import "./login.css";
 const axios = require("axios").default;
 
-const memberDetails = [
-  { id: "m1", name: "naren", email: "naren@gmail.com", password: "naren123" },
-  {
-    id: "m2",
-    name: "narender",
-    email: "narender@gmail.com",
-    password: "narender123",
-  },
-  { id: "m3", name: "susmi", email: "susmi@gmail.com", password: "susmi123" },
-  {
-    id: "m4",
-    name: "susmitha",
-    email: "susmitha@gmail.com",
-    password: "susmitha123",
-  },
-  {
-    id: "m5",
-    name: "krithi",
-    email: "krithi@gmail.com",
-    password: "krithi123",
-  },
-  {
-    id: "m6",
-    name: "krithika",
-    email: "krithika@gmail.com",
-    password: "krithika143",
-  },
-];
-
 const Login = (props) => {
   const [data, setData] = useState({
     email: "",
@@ -48,10 +19,9 @@ const Login = (props) => {
     // console.log(data);
   };
 
-  const submitHandler = (e) => {
+  const formSubmitHandler = (e) => {
     e.preventDefault();
-    const requestData = { email: email, password: password };
-
+    // const requestData = { email: email, password: password };
     //console.log(requestData);
     try {
       axios
@@ -63,55 +33,14 @@ const Login = (props) => {
           console.log(res);
           if (res.data.IsValid) {
             history("/welcome");
-            props.submitHandler(true, email);
+            console.log(email);
+            props.loginSubmitHandler(email);
+            console.log("Login JS SUBMIT HANDLER CALLED!");
           } else setError("User is not registered or not valid");
         });
     } catch (error) {
       console.log("error: ", error);
     }
-    ///// -------
-    /*
-  fetch("http://localhost:8080/IsUserValid", {
-    "method": "POST",
-    "headers": {        
-      "accept": "application/json"
-    },
-    "body": requestData
-    })
-    .then(response => response.json())
-    .then(response => {
-      console.log(response)
-
-     if( response.IsValid)
-     {
-      history("/welcome");
-      props.submitHandler(true, email);
-     }
-     else
-     setError("Enter valid E-Mail & password");
-    })
-    .catch(err => {
-      console.log(err);
-    });
-
-*/
-    // const validUserDetails = memberDetails.filter((member) => {
-    //   return member.email === email;
-    // });
-
-    // if (validUserDetails.length === 0) {
-    //   // document.getElementById("demo").innerHTML =
-    //   //   "Enter valid E-Mail & password";
-    //   setError("Enter valid E-Mail & password");
-    // } else if (validUserDetails[0].password === password) {
-    //   history("/welcome");
-    //   props.submitHandler(true, email);
-    // } else {
-    //   // document.getElementById("demo").innerHTML = "Enter valid password";
-    //   setError("Enter valid password");
-    // }
-
-    //console.log(validUserDetails);
   };
 
   return (
@@ -122,7 +51,7 @@ const Login = (props) => {
       <br />
       <div className="login">
         <center>
-          <form onSubmit={submitHandler}>
+          <form onSubmit={formSubmitHandler}>
             <label>E-Mail</label>
             <br />
             <input type="text" name="email" onChange={changeHandler} />

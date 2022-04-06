@@ -14,22 +14,23 @@ export default function Header() {
   const [user, setUser] = useState(false); //setUser true when Login is valid in login component
   const [userreg, setUserreg] = useState(false);
   const [name, setName] = useState("");
-  const [allUser, setAllUser] = useState(false);
-
+  // const [allUser, setAllUser] = useState(false);
   const history = useNavigate();
 
   const GetAllUsersHandler = (e) => {
-    setAllUser(true);
+    // setAllUser(true);
     history("/AllUsers");
   };
 
-  const submitHandler = (userValid, userName) => {
+  function loginSubmitHandler(userName) {
     // After entering login details submit button
-    console.log("checking userValid : ", userValid);
-    setUser(userValid);
+
+    setUser(true);
     setName(userName);
+
     setLogin(false);
-  };
+  }
+
   const formsubmitHandler = (userRegistered) => {
     setUserreg(userRegistered);
     setRegister(false);
@@ -40,6 +41,7 @@ export default function Header() {
     setLogin(true);
     history("/login");
   };
+
   const registerHandler = (e) => {
     //will setRegister true then open register component[main page registerHandler]
     setRegister(true);
@@ -49,45 +51,46 @@ export default function Header() {
   return (
     <div className="container">
       <header>
-        <h1>Wells Fargo</h1>
+        <h1 style={{ textAlign: "center" }}>Wells Fargo</h1>
       </header>
-      {/*<Link to="/">Go to Home page</Link>*/}{" "}
-      {login ? (
-        <Login submitHandler={submitHandler} />
-      ) : register ? (
-        <Registration submit={formsubmitHandler} />
-      ) : user ? (
-        <Welcome name={name} />
-      ) : userreg ? (
-        <Regsuccess />
-      ) : (
-        <div>
-          <div className="labels">
-            <div>
-              {" "}
-              <button style={{ color: "blue" }} onClick={GetAllUsersHandler}>
-                {" "}
-                All Users{" "}
-              </button>
+      <br />
+      <div>
+        {login ? (
+          <Login loginSubmitHandler={loginSubmitHandler} />
+        ) : register ? (
+          <Registration submit={formsubmitHandler} />
+        ) : user ? (
+          <Welcome name={name} />
+        ) : userreg ? (
+          <Regsuccess />
+        ) : (
+          <div>
+            <div className="labels">
+              <div>
+                <button style={{ color: "blue" }} onClick={GetAllUsersHandler}>
+                  All Users
+                </button>
+                <br />
+                <br />
+              </div>
+
+              <fieldset className="formdesign">
+                <label htmlFor="already-user">Already-User ?: </label>
+                <Button handleClick={loginHandler} name="Login" />
+              </fieldset>
               <br />
-              <br />
+              <fieldset className="register">
+                <label htmlFor="new-user">New User ?: </label>
+                <Button handleClick={registerHandler} name="Register" />
+              </fieldset>
             </div>
 
-            <fieldset className="formdesign">
-              <label htmlFor="already-user">Already-User ?: </label>
-              <Button handleClick={loginHandler} name="Login" />
-            </fieldset>
-            <br />
-            <fieldset className="register">
-              <label htmlFor="new-user">New User ?: </label>
-              <Button handleClick={registerHandler} name="Register" />
-            </fieldset>
+            <div class="footer">
+              <h3>Footer</h3>
+            </div>
           </div>
-          <div class="footer">
-            <p>Footer</p>
-          </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

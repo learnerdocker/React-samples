@@ -1,0 +1,39 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+body {
+  background: #fffafa;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  border-radus: 15px;
+  flex-wrap: wrap;
+}
+
+.card {
+  justify-content: center;
+  text-align: center;
+  background: white;
+  width: auto;
+  height: auto;
+  margin-left: 36px;
+  margin-top: 0px;
+  margin-right: 36px;
+  padding-top: 25px;
+  border-radius: 15px;
+  border-style: groove;
+}
+.card:hover {
+  color: white;
+  background-color: grey;
+  cursor: pointer;
+  transform: scale(1.03);
+}
+
+button:hover {
+  background-color: wheat;
+  color: black;
+}
