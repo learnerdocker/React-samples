@@ -1,15 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Registration = (props) => {
+  /*const [data, setData] = useState({
+    firstName:"",
+    lastName:"",
+    email: "",
+    password: "",
+  }); */
   const history = useNavigate();
   const formik = useFormik({
     initialValues: {
       firstName: "",
       lastName: "",
       email: "",
+      password: "",
     },
     validationSchema: Yup.object({
       firstName: Yup.string()
@@ -20,16 +28,30 @@ const Registration = (props) => {
         .max(20, "Must be 20 characters or less")
         .required("Required"),
       email: Yup.string().email("Invalid email address").required("Required"),
+      //password: Yup.string().password("Invalid password").required("Required"),
     }),
+
     onSubmit: (values) => {
       console.log(JSON.stringify(values));
       console.log(values);
 
-      history("/regsuccess");
+      const userRegData = {
+        firstName: values.firstName,
+        lastName: values.lastName,
+        email: values.email,
+        password: values.password,
+      };
 
+      axios
+        .post("http://localhost:8080/RegisterUser", userRegData)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+
+      history("/regsuccess");
       props.submit(true);
     },
   });
+
   return (
     <div>
       <form onSubmit={formik.handleSubmit}>
@@ -64,7 +86,7 @@ const Registration = (props) => {
           ) : null}
         </fieldset>
         <fieldset>
-          <label htmlFor="email">Email Address</label>
+          <label htmlFor="email">Email </label>
           <input
             id="email"
             name="email"
@@ -75,6 +97,20 @@ const Registration = (props) => {
           />
           {formik.touched.email && formik.errors.email ? (
             <div>{formik.errors.email}</div>
+          ) : null}
+        </fieldset>
+        <fieldset>
+          <label htmlFor="password">Password</label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.password}
+          />
+          {formik.touched.password && formik.errors.password ? (
+            <div>{formik.errors.password}</div>
           ) : null}
         </fieldset>
         <fieldset>

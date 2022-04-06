@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./login.css";
-const  axios = require('axios').default;
+const axios = require("axios").default;
 
 const memberDetails = [
   { id: "m1", name: "naren", email: "naren@gmail.com", password: "naren123" },
@@ -50,31 +50,27 @@ const Login = (props) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    const requestData = {  'email': email,   'password': password  };
+    const requestData = { email: email, password: password };
 
     //console.log(requestData);
-try{
-    axios.post( "http://localhost:8080/IsUserValid", {
-      email: email,
-      password: password
-    }, 
-    ).then(res => {
-      console.log(res);
-      if(res.data.IsValid)
-      {
-          history("/welcome");
-          props.submitHandler(true, email);
-      }
-      else
-      setError("User is not registered or not valid");
-    });
-  }
-  catch(error)
-  {
-    console.log('error: ', error);
-  }
+    try {
+      axios
+        .post("http://localhost:8080/IsUserValid", {
+          email: email,
+          password: password,
+        })
+        .then((res) => {
+          console.log(res);
+          if (res.data.IsValid) {
+            history("/welcome");
+            props.submitHandler(true, email);
+          } else setError("User is not registered or not valid");
+        });
+    } catch (error) {
+      console.log("error: ", error);
+    }
     ///// -------
-/*
+    /*
   fetch("http://localhost:8080/IsUserValid", {
     "method": "POST",
     "headers": {        

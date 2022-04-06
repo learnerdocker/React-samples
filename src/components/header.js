@@ -6,16 +6,25 @@ import Button from "./button";
 import Regsuccess from "./regsuccess";
 import { useNavigate } from "react-router-dom";
 import "./Header.css";
+import AllUsers from "./AllUsers";
 
 export default function Header() {
   const [login, setLogin] = useState(false);
   const [register, setRegister] = useState(false);
-  const [user, setUser] = useState(false);
+  const [user, setUser] = useState(false); //setUser true when Login is valid in login component
   const [userreg, setUserreg] = useState(false);
   const [name, setName] = useState("");
+  const [allUser, setAllUser] = useState(false);
+
   const history = useNavigate();
 
+  const GetAllUsersHandler = (e) => {
+    setAllUser(true);
+    history("/AllUsers");
+  };
+
   const submitHandler = (userValid, userName) => {
+    // After entering login details submit button
     console.log("checking userValid : ", userValid);
     setUser(userValid);
     setName(userName);
@@ -27,10 +36,12 @@ export default function Header() {
   };
 
   const loginHandler = (e) => {
+    // will setLogin true then open login component(initially it is false(state))[main page login button]
     setLogin(true);
     history("/login");
   };
   const registerHandler = (e) => {
+    //will setRegister true then open register component[main page registerHandler]
     setRegister(true);
     history("/register");
   };
@@ -52,6 +63,16 @@ export default function Header() {
       ) : (
         <div>
           <div className="labels">
+            <div>
+              {" "}
+              <button style={{ color: "blue" }} onClick={GetAllUsersHandler}>
+                {" "}
+                All Users{" "}
+              </button>
+              <br />
+              <br />
+            </div>
+
             <fieldset className="formdesign">
               <label htmlFor="already-user">Already-User ?: </label>
               <Button handleClick={loginHandler} name="Login" />
